@@ -1,0 +1,39 @@
+.cont__column {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.login  {
+    display:true;
+    width: 396px;
+    height: 522px;
+    background-color: #ffff;
+    border-radius: 16px;
+    position: absolute;
+    /* top: 50%; */
+    animation: content__position 5s infinite;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+
+@keyframes content__position {
+    0%, 100% {
+        top: 49%;
+        box-shadow: 10px 10px 5px 3px rgba(0,0,0,0.29);
+
+    }
+    50% {
+        top: 50%;
+        box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.51);
+    }
+}
+
+.cont__form__login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 25px;
+    padding-right: 25px;
+}

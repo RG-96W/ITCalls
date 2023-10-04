@@ -1,0 +1,32 @@
+.inputs {
+    padding: 5px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #a9a9a9;
+    border-style: hidden;
+    border-radius: 0px;
+    box-shadow: 0px 2px 0px rgba(169,169,169,.7);
+    text-shadow: 0px 0px 5px rgba(66,66,66,.0);
+}
+
+.inputs:focus {
+    padding: 5px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #a9a9a9;
+    border-style: hidden;
+    border-radius: 0px;
+    box-shadow: 0px 2px 0px #57D9B9;
+    text-shadow: 0px 0px 5px #57D9B9;
+
+    outline:none;
+}
+
+
+.inputs:focus + label {
+    color: #57D9B9;
+}
