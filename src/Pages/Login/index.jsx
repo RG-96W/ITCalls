@@ -5,6 +5,7 @@ import Label from '../../Components/Labels';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../Components/HeaderTop';
 
 import '../../PageStyles/LoginForm.css'
 
@@ -56,25 +57,28 @@ const LoginForm = () => {
 
 
   return (
-    <section className="login">
-      <form className="cont__form__login" >
-        <Label text="@Login" id="login__label__password" tipo="titulo" />
-        <div className="cont__column">
-          <Input type="text" id="login__name" />
-          <Label text="Nome" id="login__label__password" tipo="padrao" />
-        </div>
-        {/* <Label text="Cadastre-se!" id="login__label__password" tipo="detalhes" /> */}
-        <Link to="/cadastro" className='link'>Cadastre-se!</Link>
-        <div className="cont__column">
-          <Input type="password" id="login__password" />
-          <Label text="Senha" id="login__label__password" tipo="padrao" />
-        </div>
+    <div>
+      <Header />
+      <section className="login">
+        <form className="cont__form__login" >
+          <Label text="@Login" id="login__label__password" tipo="titulo" />
+          <div className="cont__column">
+            <Input type="text" id="login__name" />
+            <Label text="Nome" id="login__label__password" tipo="padrao" />
+          </div>
+          {/* <Label text="Cadastre-se!" id="login__label__password" tipo="detalhes" /> */}
+          <Link to="/cadastro" className='link'>Cadastre-se!</Link>
+          <div className="cont__column">
+            <Input type="password" id="login__password" />
+            <Label text="Senha" id="login__label__password" tipo="padrao" />
+          </div>
 
-        <Link to="/recsenha" className='link'>Esqueci minha senha!</Link>
+          <Link to="/recsenha" className='link'>Esqueci minha senha!</Link>
 
-        <Button text="ENTRAR" type="submit" onClick={handleSubmit} />
-      </form>
-    </section>
+          <Button text="ENTRAR" type="submit" onClick={handleSubmit} />
+        </form>
+      </section>
+    </div>
   );
 };
 export default LoginForm;

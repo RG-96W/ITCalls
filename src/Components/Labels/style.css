@@ -4,7 +4,7 @@
 
 .label.menores {
     font-size: 8px;
-    color: #57D9B9;
+    color: rgb(255, 159, 28);
 
   }
 
@@ -22,7 +22,7 @@
   }
 
 .label.titulo {
-    color: #57D9B9;
+    color: rgb(255, 159, 28);
     font-size: 45px;
     text-align: center;
     padding-bottom: 36px;
@@ -30,7 +30,7 @@
   }
 
   .label.tituloNoPadding {
-    color: #57D9B9;
+    color: rgb(255, 159, 28);
     font-size: 45px;
     text-align: center;
     padding-bottom: 24px;

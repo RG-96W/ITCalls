@@ -1,0 +1,14 @@
+.SearchTopBar {
+    width: 100%;
+    height: 64px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SearchText {
+    padding-right: 20px;
+    color: #69696993;
+    font-weight: bold;
+}

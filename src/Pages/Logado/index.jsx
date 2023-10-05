@@ -1,35 +1,45 @@
 import React from 'react';
-import Button from '../../Components/Buttons';
-import Input from '../../Components/Input';
-import Label from '../../Components/Labels';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 
-import '../../PageStyles/LoginForm.css'
+import LateralEnd from '../../Components/LateralEnd';
+import LateralMenu from '../../Components/LateralMenu';
+import ListCalls from '../../Components/ListCalls';
+import RequestTopPage from '../../Components/RequestTopPage';
+import TopBar from '../../Components/TopBar';
+
+
+import '../Logado/style.css'
+import SearchTopBar from '../../Components/SearchTopBar/SearchTopBar';
 
 
 
 const Login = () => {
-  const navigate = useNavigate();
-  const handleSubmit = () => {
-    Cookies.remove('token')
-    navigate('/');
-  }
+  // const navigate = useNavigate();
+  // const handleSubmit = () => {
+  //   Cookies.remove('token')
+  //   navigate('/');
+  // }
 
 
   return (
-    <section className="login">
-      <form className="cont__form__login" >
-        <Label text="@Logado com sucesso!" id="login__label__password" tipo="titulo" />
-        <div className="cont__column">
-          <Input type="text" id="login__name" />
-          <Label text="Nome" id="login__label__password" tipo="padrao" />
-          <Button text="LOGOUT" type="submit" onClick={handleSubmit} />
 
-        </div>
-      </form>
-    </section>
+    <main className='Page'>
+
+      <section className='Section1'>
+        <TopBar />
+        <LateralMenu />
+        <LateralEnd />
+      </section>
+
+
+      <section className='Section2'>
+        <SearchTopBar />
+        <RequestTopPage />
+        <ListCalls />
+      </section>
+
+    </main>
+
   );
 };
 export default Login;

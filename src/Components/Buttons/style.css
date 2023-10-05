@@ -1,7 +1,7 @@
 .buttons {
-	background-color:#57d9b8;
+	background-color:rgb(255, 159, 28);
 	border-radius:8px;
-	border:1px solid #57d9b8;
+	border:1px solid rgb(255, 159, 28);
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -17,7 +17,7 @@
 
 
 .buttons:hover {
-	background-color:#78e6ca;
+	background-color:#FFBF69;
 }
 
 

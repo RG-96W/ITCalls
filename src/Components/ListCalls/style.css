@@ -1,0 +1,82 @@
+.ListCalls {
+    width: 100%;
+    height: 80%;
+    overflow: auto;
+    scrollbar-width: auto;
+    scrollbar-color: #ff9f1c00 #00000000;
+}
+
+/* Chrome, Edge, and Safari */
+.ListCalls::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ListCalls::-webkit-scrollbar-track {
+    background: #00000000;
+}
+
+.ListCalls::-webkit-scrollbar-thumb {
+    background-color: #ff9f1c;
+    border-radius: 10px;
+    border: 5px double #ff9f1c;
+}
+
+
+table {
+    width: calc(100% - 80px);
+    border-collapse: collapse;
+    margin-left: 40px;
+}
+
+th, td {
+    border-bottom: 1px solid #69696952;
+    padding: 10px;
+    text-align: center;
+}
+
+.CallsRef {
+    font-weight: bold;
+    color: #696969;
+}
+
+.CallsRef:hover {
+    background-color: #f1f1f1;
+}
+
+.tab1 {
+    width: 6%;
+    height: 64px;
+}
+.tab2 {
+    width: 37%;
+    height: 64px;
+}
+.tab3 {
+    width: 17%;
+    height: 64px;
+}
+.tab4 {
+    width: 13%;
+    height: 64px;
+}
+.tab5 {
+    width: 13%; 
+    height: 64px;
+}
+.tab6 {
+    width: 13%;
+    height: 64px;
+}
+
+table tr:hover {
+    background-color: #ffbe696e;
+    cursor: pointer;
+}
+
+
+
+.ReceivedCalls {
+    font-weight: 400;
+    color: #69696993;
+    font-size: 16px
+}

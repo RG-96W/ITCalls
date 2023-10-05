@@ -1,5 +1,4 @@
 import './App.css';
-import Header from './Components/HeaderTop';
 import CadastroForm from './Pages/CadastroForm';
 import RecSenhaForm from './Pages/RecSenhaForm';
 import LoginForm from './Pages/Login';
@@ -24,7 +23,7 @@ const Private = ({ Item }) => {
 function App() {
   return (
     <>
-      <Header />
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginForm />} />

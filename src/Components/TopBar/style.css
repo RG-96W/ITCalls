@@ -1,0 +1,25 @@
+.Perfil {
+    height: 64px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF9F1C;
+    display: flex;
+    font-weight: bold;
+    color: #696969;
+    
+}
+
+.ImgPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.Infos {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

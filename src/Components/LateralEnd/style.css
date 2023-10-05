@@ -1,0 +1,49 @@
+.Section1_End {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+.Alerts {
+    padding-bottom: 150px;
+}
+
+.Postit {
+    display: block;
+}
+
+.Alerts_Overlay {
+    position: absolute;
+    color: #696969;
+    top: 780px;
+    left: 40px;
+    white-space: pre-wrap;
+    max-width: 150px;
+    height: 10rem;
+    overflow: auto;
+}
+
+/* ###### Chat GPT ####### */
+/* Firefox */
+.Alerts_Overlay {
+    scrollbar-width: auto;
+    scrollbar-color: #f8da2d #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.Alerts_Overlay::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.Alerts_Overlay::-webkit-scrollbar-track {
+    background: #ffffff00;
+}
+
+.Alerts_Overlay::-webkit-scrollbar-thumb {
+    background-color: #f8da2d;
+    border-radius: 10px;
+    border: 3px solid #ffffff00;
+}
