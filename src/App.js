@@ -4,6 +4,7 @@ import RecSenhaForm from './Pages/RecSenhaForm';
 import LoginForm from './Pages/Login';
 import RealizeLogin from './Pages/RealizeLogin';
 import Login from './Pages/Logado';
+import Request from './Components/Request'
 
 import './Components/HeaderTop/style.css';
 import './PageStyles/ResetPage.css';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/cadastro" element={<CadastroForm />} />
           <Route path="/recsenha" element={<RecSenhaForm />} />
           <Route path="/login" element={<Private Item={Login} />} />
+          <Route path="/request" element={<Private Item={Request} />} />
           <Route path="*" element={<LoginForm />} />
         </Routes>
       </BrowserRouter>
