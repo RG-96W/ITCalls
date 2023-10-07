@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import LateralEnd from '../../Components/LateralEnd';
+// import LateralEnd from '../../Components/LateralEnd';
 import LateralMenu from '../../Components/LateralMenu';
 import ListCalls from '../../Components/ListCalls';
 import RequestTopPage from '../../Components/RequestTopPage';
@@ -28,7 +28,7 @@ const Login = () => {
       <section className='Section1'>
         <TopBar />
         <LateralMenu />
-        <LateralEnd />
+        {/* <LateralEnd /> */}
       </section>
 
 

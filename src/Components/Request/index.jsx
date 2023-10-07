@@ -41,7 +41,7 @@ const Request = () => {
         <div className="parent">
 
 
-        <div className="div1">
+        <div className="div11">
   <div className="titulo">
     Título: {atualRequest.titulo} {/* Use atualRequest.titulo, não atualRequest.title */}
   </div>
@@ -50,7 +50,7 @@ const Request = () => {
   </div>
 </div>
 
-<div className="div2">
+<div className="div22">
   <div className="comentariostitulo">
     Respostas
   </div>
@@ -59,7 +59,7 @@ const Request = () => {
   </div>
 </div>
 
-<div className="div3">
+<div className="div33">
   <div className="infosRequest">
     <div className="status">Status: {atualRequest.status}</div>
     <div className="tecnico">Técnico: {atualRequest.responsavel}</div> {/* Use atualRequest.responsavel, não atualRequest.technician */}
@@ -70,7 +70,7 @@ const Request = () => {
   </div>
 </div>
 
-            <div className="div4">
+            <div className="div44">
                 <div className="GridButtons">
                     <div className="button1">
                     <Button text="Solucionado" className="bsolucionado" type="submit" />

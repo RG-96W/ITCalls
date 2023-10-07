@@ -19,7 +19,7 @@
 
 .Item_Menu:hover, .Item_Menu_S:hover {
     background-color: #FFBF69;
-    color: #696969;
+    color: #ffffff;
     cursor: pointer;
 }
 
@@ -34,3 +34,4 @@
     color: #69696993;
 
 }
+
