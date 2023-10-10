@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+// import { useNavigate } from 'react-router-dom';
+import RequestModal from '../RequestModal'; // Importe o componente do modal
 import './style.css';
 
 const ListCalls = () => {
   const [chamados, setChamados] = useState([]);
-  const navigate = useNavigate();
+  const [selectedChamadoId, setSelectedChamadoId] = useState(null); // Estado para controlar o ID do chamado selecionado
+  // const navigate = useNavigate();
 
   const handleChamadoClick = (chamadoId) => {
-    navigate('/request', { state: { chamadoId } });
+    setSelectedChamadoId(chamadoId); // Abre o modal quando um chamado é clicado
   };
 
   useEffect(() => {
@@ -57,6 +58,11 @@ const ListCalls = () => {
           ))}
         </tbody>
       </table>
+      <RequestModal
+        isOpen={selectedChamadoId !== null}
+        onRequestClose={() => setSelectedChamadoId(null)} // Fecha o modal quando o usuário clica fora dele
+        chamadoId={selectedChamadoId}
+      />
     </div>
   );
 };
