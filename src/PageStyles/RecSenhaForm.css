@@ -9,7 +9,7 @@
         background-color: #ffff;
         border-radius: 16px;
         position: absolute;
-        /* top: 50%; */
+        top: 50%;
         animation: content__position 5s infinite;
         left: 50%;
         transform: translate(-50%, -50%);

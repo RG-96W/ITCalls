@@ -3,13 +3,16 @@ import React from 'react';
 
 // import LateralEnd from '../../Components/LateralEnd';
 import LateralMenu from '../../Components/LateralMenu';
-import ListCalls from '../../Components/ListCalls';
-import RequestTopPage from '../../Components/RequestTopPage';
+// import ListCalls from '../../Components/ListCalls';
+// import RequestTopPage from '../../Components/RequestTopPage';
+import NewRequestTop from '../../Components/NewRequest'
+import NewRequest from '../../Components/NewRequestForm'
 import TopBar from '../../Components/TopBar';
 
 
 import '../Logado/style.css'
 import SearchTopBar from '../../Components/SearchTopBar/SearchTopBar';
+
 
 
 
@@ -34,8 +37,12 @@ const Login = () => {
 
       <section className='Section2'>
         <SearchTopBar />
-        <RequestTopPage />
-        <ListCalls />
+
+        {/* <RequestTopPage /> */}
+        {/* <ListCalls /> */}
+
+        <NewRequestTop />
+        <NewRequest />
       </section>
 
     </main>
