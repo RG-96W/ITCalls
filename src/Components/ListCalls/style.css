@@ -1,25 +1,36 @@
+/* Remova estas propriedades para a barra de rolagem padrão */
 .ListCalls {
     width: 100%;
     height: 80%;
+    /* overflow: auto; */
+    /* scrollbar-width: auto; */
+    /* scrollbar-color: #ff9f1c00 #00000000; */
+    overflow-x: hidden;
+  }
+  
+  /* Adicione estas propriedades para criar barras de rolagem personalizadas */
+  .ListCalls {
+    width: 100%;
+    height: 80%;
     overflow: auto;
-    scrollbar-width: auto;
-    scrollbar-color: #ff9f1c00 #00000000;
-}
-
-/* Chrome, Edge, and Safari */
-.ListCalls::-webkit-scrollbar {
-    width: 8px;
-}
-
-.ListCalls::-webkit-scrollbar-track {
-    background: #00000000;
-}
-
-.ListCalls::-webkit-scrollbar-thumb {
+  }
+  
+  /* Estilo para a barra de rolagem */
+  .ListCalls::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Estilo para o polegar da barra de rolagem */
+  .ListCalls::-webkit-scrollbar-thumb {
     background-color: #ff9f1c;
     border-radius: 10px;
     border: 5px double #ff9f1c;
-}
+  }
+  
+  /* Estilo para a barra de rolagem de fundo */
+  .ListCalls::-webkit-scrollbar-track {
+    background-color: #00000000;
+  }
 
 
 table {
@@ -82,4 +93,10 @@ table tr:hover {
     font-weight: 400;
     color: #69696993;
     font-size: 16px
+}
+
+.scrollbarall {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }

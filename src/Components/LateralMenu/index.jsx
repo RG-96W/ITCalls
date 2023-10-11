@@ -1,29 +1,40 @@
-import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import Cookies from 'js-cookie';
+import React, { useState } from 'react';
+import './style.css';
 
+const LateralMenu = ({ onMenuClick }) => {
+  const menuItems = [
+    { id: 'inicio', label: 'Inicio' },
+    { id: 'abrir-chamados', label: 'Abrir Chamados' },
+    { id: 'meus-tickets', label: 'Meus Tickets' },
+    { id: 'chamados-recebidos', label: 'Chamados Recebidos' },
+    { id: 'inventario', label: 'Inventário' },
+    { id: 'usuarios', label: 'Usuários' },
+    { id: 'tecnicos', label: 'Técnicos' },
+    { id: 'metricas', label: 'Métricas' },
+  ];
 
-import './style.css'
+  const [selectedMenuItem, setSelectedMenuItem] = useState('inicio');
 
+  const handleMenuClick = (id) => {
+    onMenuClick(id);
+    setSelectedMenuItem(id);
+  };
 
-
-const LateralMenu = () => {
-
-    return (
-
-        <nav>
-        <ul className="Menu">
-            <li className="Item_Menu_S">Inicio</li>
-            <li className="Item_Menu">Abrir Chamados</li>
-            <li className="Item_Menu">Meus Tickets</li>
-            <li className="Item_Menu">Chamados Recebidos</li>
-            <li className="Item_Menu">Inventario</li>
-            <li className="Item_Menu">Usarios</li>
-            <li className="Item_Menu">Técnicos</li>
-            <li className="Item_Menu">Métricas</li>
-        </ul>
+  return (
+    <nav>
+      <ul className="Menu">
+        {menuItems.map((menuItem) => (
+          <li
+            key={menuItem.id}
+            className={`Item_Menu${selectedMenuItem === menuItem.id ? '_Selected' : ''}`}
+            onClick={() => handleMenuClick(menuItem.id)}
+          >
+            {menuItem.label}
+          </li>
+        ))}
+      </ul>
     </nav>
-
-    );
+  );
 };
+
 export default LateralMenu;

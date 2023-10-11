@@ -1,52 +1,53 @@
-import React from 'react';
-
-
-// import LateralEnd from '../../Components/LateralEnd';
-import LateralMenu from '../../Components/LateralMenu';
-// import ListCalls from '../../Components/ListCalls';
-// import RequestTopPage from '../../Components/RequestTopPage';
-import NewRequestTop from '../../Components/NewRequest'
-import NewRequest from '../../Components/NewRequestForm'
+import React, { useState } from 'react';
 import TopBar from '../../Components/TopBar';
-
-
-import '../Logado/style.css'
+import LateralMenu from '../../Components/LateralMenu';
+import NewRequestTop from '../../Components/NewRequest';
+import NewRequest from '../../Components/NewRequestForm';
 import SearchTopBar from '../../Components/SearchTopBar/SearchTopBar';
-
-
-
+import RequestTopPage from '../../Components/RequestTopPage';
+import ListCalls from '../../Components/ListCalls'
+import './style.css';
 
 const Login = () => {
-  // const navigate = useNavigate();
-  // const handleSubmit = () => {
-  //   Cookies.remove('token')
-  //   navigate('/');
-  // }
+  const [selectedMenu, setSelectedMenu] = useState('inicio');
 
+  const handleMenuClick = (menuId) => {
+    setSelectedMenu(menuId);
+  };
 
   return (
-
-    <main className='Page'>
-
-      <section className='Section1'>
+    <main className="Page">
+      <section className="Section1">
         <TopBar />
-        <LateralMenu />
-        {/* <LateralEnd /> */}
+        <LateralMenu onMenuClick={handleMenuClick} />
       </section>
 
-
-      <section className='Section2'>
+      <section className="Section2">
         <SearchTopBar />
 
-        {/* <RequestTopPage /> */}
-        {/* <ListCalls /> */}
+        {selectedMenu === 'inicio' && (
+          /* Conteúdo para a guia "Inicio" */
+          <div className='ListCalls2'>
+            {/* Conteúdo da guia "Inicio" */}
+            <RequestTopPage />
+            <ListCalls />
+          </div>
+        )}
 
-        <NewRequestTop />
-        <NewRequest />
+        {selectedMenu === 'abrir-chamados' && (
+          /* Conteúdo para a guia "Abrir Chamados" */
+          <div>
+            {/* Conteúdo da guia "Abrir Chamados" */}
+            <NewRequestTop />
+            <NewRequest />
+          </div>
+        )}
+
+        {/* Adicione mais blocos de conteúdo para outros menus, se necessário. */}
+
       </section>
-
     </main>
-
   );
 };
+
 export default Login;

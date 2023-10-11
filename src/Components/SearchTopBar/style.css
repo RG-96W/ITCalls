@@ -1,14 +1,15 @@
-.SearchTopBar {
-    width: 100%;
-    height: 64px;
+.top__bar2 {
     background-color: #ffffff;
     display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: 64px;
+    color: #a9a9a9;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 }
 
-.SearchText {
-    padding-right: 20px;
-    color: #69696993;
-    font-weight: bold;
+.icons {
+    padding-left: 24px;
 }
