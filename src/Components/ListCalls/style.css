@@ -100,3 +100,16 @@ table tr:hover {
     height: 100%;
     overflow: auto;
 }
+
+.status-novo {
+    color: green;
+    font-weight: bold;
+}
+.status-em-atendimento {
+    color: lightseagreen;
+    font-weight: bold;
+}
+.status-bloqueado {
+    color: red;
+    font-weight: bold;
+}

@@ -20,11 +20,13 @@ const TopBar = () => {
 
     const handleLogout = () => {
         // Limpe os cookies
-        Cookies.remove('token');
-        Cookies.remove('userName');
+
         
         // Redirecione para a página inicial
         window.location.href = '/'; // Use window.location.href para redirecionar
+        Cookies.remove('token');
+        Cookies.remove('userName');
+        Cookies.remove('level');
       };
 
 

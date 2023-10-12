@@ -68,6 +68,8 @@ const Atribuidos = () => {
   const currentChamados = chamados.slice(indexOfFirstChamado, indexOfLastChamado);
 
   return (
+
+
     <div className="meuschamadosa">
       <div className="meuschamadosgrid">
         {currentChamados.map((chamado, index) => (

@@ -12,6 +12,19 @@ const ListCalls = () => {
     setSelectedChamadoId(chamadoId); // Abre o modal quando um chamado é clicado
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Novo':
+        return 'status-novo'; // Adicione a classe "status-novo" no seu arquivo CSS
+      case 'Em Atendimento':
+        return 'status-em-atendimento'; // Adicione a classe "status-em-atendimento" no seu arquivo CSS
+      case 'Bloqueado':
+        return 'status-bloqueado'; // Adicione a classe "status-bloqueado" no seu arquivo CSS
+      default:
+        return '';
+    }
+  };
+
   useEffect(() => {
     // Fazer uma solicitação HTTP GET para obter os chamados do servidor usando fetch
     fetch('http://127.0.0.1:5001/requests')
@@ -43,14 +56,18 @@ const ListCalls = () => {
           </tr>
         </thead>
         <tbody>
-          {chamados.map((chamado) => (
-            <tr
-              key={chamado._id}
-              onClick={() => handleChamadoClick(chamado._id)}
-            >
+        {chamados
+    .filter(chamado => chamado.status !== "Fechado") // Filtra os chamados com status diferente de "Fechado"
+    .map((chamado) => (
+      <tr
+        key={chamado._id}
+        onClick={() => handleChamadoClick(chamado._id)}
+      >
               <td className="tab1">{chamado.id_interno}</td>
               <td className="tab2">{chamado.titulo}</td>
-              <td className="tab3">{chamado.status}</td>
+              <td className={`tab3 ${getStatusColor(chamado.status)}`}>
+                  {chamado.status}
+                </td>
               <td className="tab4">{chamado.responsavel}</td>
               <td className="tab5">{chamado.cliente}</td>
               <td className="tab6">{chamado.data_previsao}</td>

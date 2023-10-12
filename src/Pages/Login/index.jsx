@@ -42,6 +42,7 @@ const LoginForm = () => {
         // Salvando o token no cookie
         setCookie('token', data.token, { path: '/' });
         setCookie('userName', login, { path: '/' });
+        setCookie('level', data.level, {path:'/'});
         console.log('Autenticação bem-sucedida.');
         console.log(data.token)
 

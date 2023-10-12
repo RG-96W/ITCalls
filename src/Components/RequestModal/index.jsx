@@ -10,6 +10,7 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
   const [atualRequest, setAtualRequest] = useState(null);
   const [progresso, setProgresso] = useState(0);
   const [comentarioModalIsOpen, setComentarioModalIsOpen] = useState(false);
+  const [comentarioBModalIsOpen, setComentarioBModalIsOpen] = useState(false);
   const progressoRef = useRef(progresso);
   const [userName, setUserName] = useState('');
 
@@ -74,6 +75,14 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
     setComentarioModalIsOpen(true);
   };
 
+
+
+  const handleBloqueadoClick = () => {
+    setComentarioBModalIsOpen(true);
+  };
+
+
+
   // Função para lidar com o envio do comentário
   const handleComentarioSubmit = () => {
     // Use getElementById para obter o valor do textarea
@@ -121,6 +130,55 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
     setComentarioModalIsOpen(false);
   };
 
+  const handleBloqueadoSubmit = () => {
+    // Use getElementById para obter o valor do textarea
+    const comentarioTexto = document.getElementById('TextAreaB').value;
+
+    // Crie um novo comentário com a data, autor e conteúdo
+    const novoComentario = {
+      data: new Date(),
+      autor: userName, // Substitua pelo nome do autor (se for dinâmico)
+      texto: comentarioTexto,
+    };
+
+    // Atualize a lista de comentários no chamado atual
+    const novosComentarios = [...atualRequest.comentarios, novoComentario];
+
+    // Atualize o status para "Fechado"
+    const novoStatus = 'Bloqueado';
+
+    // Faça uma solicitação PUT para atualizar o chamado no servidor
+    fetch(`http://127.0.0.1:5001/requests/${chamadoId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        comentarios: novosComentarios,
+        status: novoStatus,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error('Erro ao atualizar o chamado');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Atualize o estado com o novo chamado
+        setAtualRequest(data);
+      })
+      .catch((error) => {
+        console.error('Erro ao atualizar o chamado:', error);
+      });
+
+    // Fechar o modal de comentário
+    setComentarioBModalIsOpen(false);
+  };
+
+
+
+  
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="request-modal">
       <div className="bodymodal">
@@ -151,7 +209,7 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
                 <Button text="Solucionado" className="bsolucionado" type="button" onClick={handleSolucionadoClick} />
               </div>
               <div className="bu2">
-                <Button text="Bloqueado" className="bbloqueado" type="submit" />
+                <Button text="Bloqueado" className="bbloqueado" type="submit" onClick={handleBloqueadoClick} />
               </div>
               <div className="bu3">
                 <Button text="Editar" className="beditar" type="submit" />
@@ -172,6 +230,19 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
             placeholder="Digite como foi realizada a solução."
           />
           <Button text="Enviar Comentário" className="bbsolucionado" onClick={handleComentarioSubmit} />
+        </div>
+        </div>
+      </Modal>
+      <Modal isOpen={comentarioBModalIsOpen} onRequestClose={() => setComentarioBModalIsOpen(false)} className="bloqueado-modal">
+        <div className='modalbloqueado'>
+        <div className="bloqueado-modal-body">
+          <h2 className="bloqueadoTitle">Comente o motivo do Bloqueio!</h2>
+          <textarea
+            className='TextAreabloqueado'
+            id='TextAreaB'
+            placeholder="Digite por que foi bloqueado."
+          />
+          <Button text="Enviar Comentário" className="bbbloqueado" onClick={handleBloqueadoSubmit} />
         </div>
         </div>
       </Modal>

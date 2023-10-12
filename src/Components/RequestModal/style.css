@@ -354,3 +354,58 @@ font-weight: bold;
                 font-weight: bolder;
                 font-size: 32px;
             }
+
+            
+
+
+
+
+            .bloqueado-modal-body {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                justify-content: center;
+                align-items: center;  
+                flex-direction: column; 
+            }
+            .bloqueado-modal {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                justify-content: center;
+                align-content: center; 
+                background-color: #9292925e;
+
+            }
+
+            .TextAreabloqueado {
+                width: 45%;
+                height: 30%;
+            }
+
+            .bbbloqueado {
+                background-color:#c74444;
+                border-radius:34px;
+                border:1px solid #ab1818;
+                display:inline-block;
+                cursor:pointer;
+                color:#ffffff;
+                font-family:Arial;
+                font-size:17px;
+                padding:26px 46px;
+                text-decoration:none;
+                text-shadow:0px 1px 0px #662727;
+            }
+            .bbbloqueado:hover {
+                background-color:#bf2a2a;
+            }
+            .bbbloqueado:active {
+                position:relative;
+                top:1px;
+            }
+            
+            .bloqueadoTitle {
+                color: #c74444;
+                font-weight: bolder;
+                font-size: 32px;
+            }
