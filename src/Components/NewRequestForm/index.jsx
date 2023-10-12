@@ -61,7 +61,7 @@ const RequestPageForm = () => {
   
     return (
 
-<body>
+
   <div className='request-body'>
     <div className='newrequest-parent'>
         <div className='newrequest-div1'>
@@ -84,7 +84,6 @@ const RequestPageForm = () => {
               </div>
           </div>
           </div>
-</body>
 
     );
 };

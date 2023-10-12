@@ -2,15 +2,21 @@ import React, { useEffect, useState, useRef } from 'react';
 import Modal from 'react-modal';
 import Button from './button';
 import './style.css';
+import Cookies from 'js-cookie';
 
 Modal.setAppElement('#root');
 
 const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
   const [atualRequest, setAtualRequest] = useState(null);
   const [progresso, setProgresso] = useState(0);
+  const [comentarioModalIsOpen, setComentarioModalIsOpen] = useState(false);
   const progressoRef = useRef(progresso);
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
+
+    // Recupere o nome do usuário do cookie
+
     if (chamadoId) {
       fetch(`http://127.0.0.1:5001/requests/${chamadoId}`)
         .then((response) => {
@@ -37,6 +43,15 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
     }
   }, [chamadoId]);
 
+  useEffect(() => {
+    // Recupere o nome do usuário do cookie
+    const userNameFromCookie = Cookies.get('userName');
+
+    if (userNameFromCookie) {
+      setUserName(userNameFromCookie);
+    }
+  }, []);
+
   if (!atualRequest) {
     return null;
   }
@@ -53,6 +68,58 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
   } else {
     cor = '#801300';
   }
+
+  // Função para abrir o modal de comentário
+  const handleSolucionadoClick = () => {
+    setComentarioModalIsOpen(true);
+  };
+
+  // Função para lidar com o envio do comentário
+  const handleComentarioSubmit = () => {
+    // Use getElementById para obter o valor do textarea
+    const comentarioTexto = document.getElementById('TextAreaS').value;
+
+    // Crie um novo comentário com a data, autor e conteúdo
+    const novoComentario = {
+      data: new Date(),
+      autor: userName, // Substitua pelo nome do autor (se for dinâmico)
+      texto: comentarioTexto,
+    };
+
+    // Atualize a lista de comentários no chamado atual
+    const novosComentarios = [...atualRequest.comentarios, novoComentario];
+
+    // Atualize o status para "Fechado"
+    const novoStatus = 'Fechado';
+
+    // Faça uma solicitação PUT para atualizar o chamado no servidor
+    fetch(`http://127.0.0.1:5001/requests/${chamadoId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        comentarios: novosComentarios,
+        status: novoStatus,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error('Erro ao atualizar o chamado');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Atualize o estado com o novo chamado
+        setAtualRequest(data);
+      })
+      .catch((error) => {
+        console.error('Erro ao atualizar o chamado:', error);
+      });
+
+    // Fechar o modal de comentário
+    setComentarioModalIsOpen(false);
+  };
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="request-modal">
@@ -81,7 +148,7 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
           <div className="b3">
             <div className="buttonss">
               <div className="bu1">
-                <Button text="Solucionado" className="bsolucionado" type="submit" />
+                <Button text="Solucionado" className="bsolucionado" type="button" onClick={handleSolucionadoClick} />
               </div>
               <div className="bu2">
                 <Button text="Bloqueado" className="bbloqueado" type="submit" />
@@ -93,6 +160,21 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
           </div>
         </div>
       </div>
+
+      {/* Modal de comentário */}
+      <Modal isOpen={comentarioModalIsOpen} onRequestClose={() => setComentarioModalIsOpen(false)} className="comentario-modal">
+        <div className='modalSolution'>
+        <div className="comentario-modal-body">
+          <h2 className="SolucionadoTitle">Comente a Solução!</h2>
+          <textarea
+            className='TextAreaSoluction'
+            id='TextAreaS'
+            placeholder="Digite como foi realizada a solução."
+          />
+          <Button text="Enviar Comentário" className="bbsolucionado" onClick={handleComentarioSubmit} />
+        </div>
+        </div>
+      </Modal>
     </Modal>
   );
 };

@@ -6,6 +6,8 @@ import NewRequest from '../../Components/NewRequestForm';
 import SearchTopBar from '../../Components/SearchTopBar/SearchTopBar';
 import RequestTopPage from '../../Components/RequestTopPage';
 import ListCalls from '../../Components/ListCalls'
+import Enviados from '../../Components/Atribuidos'
+import AtribuidosTecnico from '../../Components/AtribuidosTecnico'
 import './style.css';
 
 const Login = () => {
@@ -40,6 +42,24 @@ const Login = () => {
             {/* Conteúdo da guia "Abrir Chamados" */}
             <NewRequestTop />
             <NewRequest />
+          </div>
+        )}
+
+        {selectedMenu === 'meus-tickets' && (
+          /* Conteúdo para a guia "Abrir Chamados" */
+          <div className='ListCalls2'>
+            {/* Conteúdo da guia "Abrir Chamados" */}
+            <Enviados />
+            {/* <NewRequest /> */}
+          </div>
+        )}
+
+        {selectedMenu === 'chamados-recebidos' && (
+          /* Conteúdo para a guia "Abrir Chamados" */
+          <div className='ListCalls2'>
+            {/* Conteúdo da guia "Abrir Chamados" */}
+            <AtribuidosTecnico />
+            {/* <NewRequest /> */}
           </div>
         )}
 

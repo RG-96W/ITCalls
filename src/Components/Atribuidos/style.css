@@ -1,0 +1,103 @@
+
+.meuschamadosa {
+    width: 100%;
+    height: 85%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.meuschamadosgrid {
+    display: grid;
+    padding-top: 2%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 95%;
+    height: 100%;
+    overflow: auto;
+    }
+    
+    .meuchamado, .meuchamado1, .meuchamado2, .meuchamado meuchamado2, .meuchamado3, .meuchamado4, .meuchamado5, .meuchamado6, .meuchamado7, .meuchamado8, .meuchamado9,
+     .meuchamado10, .meuchamado11, .meuchamado12, .meuchamado13, .meuchamado14, .meuchamado15, .meuchamado16, .meuchamado17, .meuchamado18,
+      .meuchamado19, .meuchamado20, .meuchamado21, .meuchamado, .meuchamado22, .meuchamado23, .meuchamado24, .meuchamado25, .meuchamado26,
+       .meuchamado27, .meuchamado28, .meuchamado29, .meuchamado30, .meuchamado31, .meuchamado32, .meuchamado33, .meuchamado34,
+        .meuchamado35, .meuchamado36, .meuchamado37, .meuchamado38, .meuchamado39, .meuchamado40 { 
+        grid-area: 1 / 1 / 2 / 2; 
+        background-color: #ffdaa3;
+        width: 95%;
+        height: 95%;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        -webkit-box-shadow: 10px 10px 12px -1px rgba(0,0,0,0.46);
+-moz-box-shadow: 10px 10px 12px -1px rgba(0,0,0,0.46);
+box-shadow: 10px 10px 12px -1px rgba(0,0,0,0.46);
+    }
+
+    .chamadobox {
+        width: 95%;
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .boxtitulo {
+        padding-bottom: 5%;
+        padding-top: 5%;
+    }
+
+    .boxdescricao {
+        width: 100%;
+        height: 60%;
+    }
+
+
+
+    .status3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 20%;
+        
+    }
+
+    .chamadostatus1 {
+        padding-bottom: 2%;
+    }
+
+
+    .meuchamado2 { 
+        grid-area: 1 / 2 / 2 / 3; 
+
+
+    }
+    .meuchamado3 { 
+        grid-area: 1 / 3 / 2 / 4; 
+    }
+    .meuchamado4 { 
+        grid-area: 2 / 1 / 3 / 2; 
+    }
+    .meuchamado5 { 
+        grid-area: 2 / 2 / 3 / 3; 
+    }
+    .meuchamado6 { 
+        grid-area: 2 / 3 / 3 / 4; 
+    }
+
+
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
