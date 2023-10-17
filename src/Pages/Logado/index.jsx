@@ -10,6 +10,7 @@ import Enviados from '../../Components/Atribuidos';
 import AtribuidosTecnico from '../../Components/AtribuidosTecnico';
 import Abertos from '../../Components/MeusTicketsTop';
 import Atribuidos from '../../Components/AtribuidosAMim';
+import Users from '../../Components/ListUsers';
 import './style.css';
 
 const Login = () => {
@@ -63,6 +64,16 @@ const Login = () => {
             {/* Conteúdo da guia "Abrir Chamados" */}
             <Atribuidos />
             <AtribuidosTecnico />
+            {/* <NewRequest /> */}
+          </div>
+        )}
+
+        {selectedMenu === 'usuarios' && (
+          /* Conteúdo para a guia "Abrir Chamados" */
+          <div className='ListCalls2'>
+            {/* Conteúdo da guia "Abrir Chamados" */}
+            <Atribuidos />
+            <Users />
             {/* <NewRequest /> */}
           </div>
         )}

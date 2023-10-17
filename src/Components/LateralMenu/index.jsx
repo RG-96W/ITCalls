@@ -52,7 +52,6 @@ const LateralMenu = ({ onMenuClick }) => {
     { id: 'chamados-recebidos', label: 'Chamados Recebidos' },
     { id: 'inventario', label: 'Inventário' },
     { id: 'usuarios', label: 'Usuários' },
-    { id: 'tecnicos', label: 'Técnicos' },
     { id: 'metricas', label: 'Métricas' },
   ];
 
@@ -77,10 +76,6 @@ const LateralMenu = ({ onMenuClick }) => {
 
     if (menuItem.id === 'usuarios' && level < 3) {
       return false; // Não permita que usuários com nível inferior a 1 vejam "Usuários"
-    }
-
-    if (menuItem.id === 'tecnicos' && level < 3) {
-      return false; // Não permita que usuários com nível inferior a 1 vejam "Técnicos"
     }
 
     if (menuItem.id === 'metricas' && level < 3) {
