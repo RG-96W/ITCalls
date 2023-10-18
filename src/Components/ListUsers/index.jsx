@@ -83,7 +83,10 @@ const ListCalls = () => {
     3: "Administrador"
     
   };
-
+  const formatPassword = (password) => {
+    // Exibe os primeiros 2 caracteres seguidos de 3 asteriscos
+    return password.substring(0, 2) + '***';
+  };
   
 
   return (
@@ -107,7 +110,7 @@ const ListCalls = () => {
       >
               <td className="tab1">{account.login}</td>
               <td className="tab2">{account.email}</td>
-              <td className="tab3">{account.password}</td>
+              <td className="tab3">{formatPassword(account.password)}</td> {/* Formata a senha */}
               <td className={`tab4 ${account.level === 2 ? 'blue bold' : account.level === 3 ? 'red bold' : ''}`}>{levelMap[account.level] || ""}</td>
             </tr>
           ))}

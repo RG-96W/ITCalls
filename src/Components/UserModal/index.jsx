@@ -43,7 +43,10 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
   const handleSubmit = async => {
     console.log("a")
   }
-
+  const formatPassword = (password) => {
+    // Exibe os primeiros 2 caracteres seguidos de 3 asteriscos
+    return password.substring(0, 2) + '***';
+  };
   
 
   return (
@@ -54,9 +57,9 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
       <h1 className='Titulouser'>Alterar dados de usuario</h1>
     <p className='opuser'>Nome: {accountDetails.login}</p>
     <p className='opuser'>E-Mail: {accountDetails.email}</p>
-    <p className='opuser'>Password: {accountDetails.password}</p>
+    <p className='opuser'>Password: {formatPassword(accountDetails.password)}</p>
     <p className='opuser'>Função: {levelMap[accountDetails.level] || ''}</p>
-    <select name="Alterar" id="cars">
+    <select className='options' name="Alterar" id="cars">
         <option value="nome">Nome</option>
         <option value="email">E-mail</option>
         <option value="password">Senha</option>
@@ -66,7 +69,7 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
             <Label text="Senha" id="login__label__password" tipo="padrao" />
             <Input type="password" id="login__password" />
             <div>
-          <Button text="ALTERAR" type="submit" onClick={handleSubmit} />
+          <Button text="ALTERAR" className='bsolucionado2' type="submit" onClick={handleSubmit} />
           </div>
 </div>
   </div>

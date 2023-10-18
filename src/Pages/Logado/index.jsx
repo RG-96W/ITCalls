@@ -15,20 +15,36 @@ import './style.css';
 
 const Login = () => {
   const [selectedMenu, setSelectedMenu] = useState('inicio');
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+
 
   const handleMenuClick = (menuId) => {
     setSelectedMenu(menuId);
   };
 
+  const handleMenuClickShow = () => {
+    setIsButtonClicked(!isButtonClicked);
+  };
+
   return (
     <main className="Page">
-      <section className="Section1">
+      <section className={`Section1 ${isButtonClicked ? 'section1show' : ''}`}>
         <TopBar />
         <LateralMenu onMenuClick={handleMenuClick} />
       </section>
 
       <section className="Section2">
         <SearchTopBar />
+
+        <div className="show_menu" onClick={handleMenuClickShow}>
+          {/* Ícone do menu para dispositivos móveis */}
+          <i className="fas fa-bars">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="40">
+            <path fill="#FF9F1C" d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+          </i>
+        </div>
+
 
         {selectedMenu === 'inicio' && (
           /* Conteúdo para a guia "Inicio" */

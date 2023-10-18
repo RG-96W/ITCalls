@@ -118,3 +118,21 @@ font-size: 20px;
     height: 105%;
     background-color: rgb(241, 241, 241);
 }
+
+@media (max-width: 768px) {
+    .Section1 {
+      display: none;
+
+    }
+  }
+
+  @media (min-width: 769px) {
+    .show_menu {
+      display: none;
+    }
+  }
+
+  .section1show {
+    display: block;
+  }
+
