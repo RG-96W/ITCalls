@@ -43,10 +43,10 @@ const ListCalls = () => {
     const token = getBearerTokenFromCookies();
 
     if (token !== null) {
-      console.log('Token:', token);
+      // console.log('Token:', token);
       const apiUrl = 'http://127.0.0.1:5000/account';
     
-      console.log('Fazendo solicitação GET para:', apiUrl);
+      // console.log('Fazendo solicitação GET para:', apiUrl);
     
       fetch(apiUrl, {
         method: 'GET',
@@ -66,7 +66,7 @@ const ListCalls = () => {
           return response.json();
         })
         .then((data) => {
-          console.log('Dados obtidos com sucesso:', data);
+          // console.log('Dados obtidos com sucesso:', data);
           setAccount(data);
         })
         .catch((error) => {

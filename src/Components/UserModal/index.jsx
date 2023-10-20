@@ -27,6 +27,7 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
       })
       .then((data) => {
         setAccountDetails(data);
+        setLoginToUpdate(data.login);
       })
       .catch((error) => {
         console.error('Erro ao obter os detalhes da conta:', error);
@@ -40,14 +41,57 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
     
   };
 
-  const handleSubmit = async => {
-    console.log("a")
-  }
   const formatPassword = (password) => {
     // Exibe os primeiros 2 caracteres seguidos de 3 asteriscos
     return password.substring(0, 2) + '***';
   };
+
+
+
+
+
+  const [selectedOption, setSelectedOption] = useState('login');
+  const [loginToUpdate, setLoginToUpdate] = useState('');
+
+  const handleSubmit = () => {
+  const token = Cookies.get('token');
+  const inputAlteracao = document.getElementById('alteracao').value
+  const updateData = {};
+
+  if (selectedOption === 'login') {
+    updateData.login = inputAlteracao;
+  } else if (selectedOption === 'password') {
+    updateData.password = inputAlteracao;
+  } else if (selectedOption === 'email') {
+    updateData.email = inputAlteracao;
+  } else if (selectedOption === 'level') {
+    updateData.level = inputAlteracao;
+  }
   
+  fetch(`http://127.0.0.1:5000/account/${loginToUpdate}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updateData), // Converta o objeto em JSON
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Erro na atualização do usuário');
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log('Usuário atualizado com sucesso:', data);
+  })
+  .catch((error) => {
+    console.error('Erro na atualização do usuário:', error);
+  });
+};
+
+
+
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="request-modal">
@@ -59,15 +103,21 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
     <p className='opuser'>E-Mail: {accountDetails.email}</p>
     <p className='opuser'>Password: {formatPassword(accountDetails.password)}</p>
     <p className='opuser'>Função: {levelMap[accountDetails.level] || ''}</p>
-    <select className='options' name="Alterar" id="cars">
-        <option value="nome">Nome</option>
-        <option value="email">E-mail</option>
-        <option value="password">Senha</option>
-        <option value="funcao">Função</option>
-      </select>
+<select
+  className='options'
+  name="Alterar"
+  id="cars"
+  value={selectedOption}
+  onChange={(e) => setSelectedOption(e.target.value)}
+>
+              <option value="login">Nome</option>
+              <option value="email">E-mail</option>
+              <option value="password">Senha</option>
+              <option value="level">Função</option>
+            </select>
 
             <Label text="Senha" id="login__label__password" tipo="padrao" />
-            <Input type="password" id="login__password" />
+            <Input type="password" id="alteracao" />
             <div>
           <Button text="ALTERAR" className='bsolucionado2' type="submit" onClick={handleSubmit} />
           </div>
