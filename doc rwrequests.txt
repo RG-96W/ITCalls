@@ -1,0 +1,14 @@
+001 Erro obtido quando ocorre alguma falha na obtenção ou envio de dados ao servidor de usuarios (API1)
+002 Erro obtido quando não ha token de usuario nos cookies, recomenda-se refazer o login.
+003 Erro obtigo quando ocorre alguma falha relacioanada ao servidor de requests (API2)
+004
+905 Ocorreu um erro no momento de realiar uma atualização no usuario (UserModal > 123)
+906 Erro na lista de usuarios da API1 (ListUsers > 75)
+907 Erro ao obter usuarios da lista, não ha token nos cookies (ListUsers > 46)
+908 Erro ao obter chamados para listagem (ListCalls > 64)
+909 Erro geralmente obtido quando está tentando obter os dados do chamado que foi clicado na lista (RequestModal > 64)
+910 Erro geralmente obtido quando está tentando atualizar o chamado para BLOQUEADO (RequestModal > 194)
+911 Erro geralmente obtido quando está tentando atualizar o chamado para SOLUCIONADO (RequestModal > 194)
+912 Erro não identificado encontrado no momento de abertura do chamado (NewRequestForm > 76)
+
+101 Codigo para sucessos e confirmações em geral!

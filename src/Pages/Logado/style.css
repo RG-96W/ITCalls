@@ -117,6 +117,8 @@ font-size: 20px;
     overflow-x: hidden;
     height: 105%;
     background-color: rgb(241, 241, 241);
+    overflow: auto;
+
 }
 
 @media (max-width: 768px) {

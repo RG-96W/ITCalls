@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Button from '../../Components/RequestModal/button';
+import MessageModal from '../MessageModal';
 import './style.css';
 
 const Atribuidos = () => {
@@ -8,6 +9,26 @@ const Atribuidos = () => {
   const [userName, setUserName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const chamadosPerPage = 6; // Quantidade de chamados por página
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+
+
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openMessageModal = (title, message, son) => {
+    if (!isModalOpen) {
+      setModalTitle(title);
+      setModalMessage(message);
+      setIsModalOpen(son);
+    }
+  };
+
+
 
   useEffect(() => {
     // Recupere o nome do usuário do cookie
@@ -18,7 +39,7 @@ const Atribuidos = () => {
     }
 
     // Fazer uma solicitação HTTP GET para obter os chamados do servidor usando fetch
-    fetch('http://127.0.0.1:5001/requests')
+    fetch('http://200.216.165.199:51000/requests')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Erro ao obter os chamados');
@@ -85,7 +106,7 @@ const Atribuidos = () => {
                 <div className="chamadostatus1" style={{ color: getStatusColor(chamado.status) }}>
                   {chamado.status}
                 </div>
-                <Button text="Saber Mais" className="beditar" type="submit" />
+                <Button text="Saber Mais" className="beditar" type="submit" onClick={() => openMessageModal("Ops...", "Está pagina está em construção!", true)}/>
               </div>
             </div>
           </div>
@@ -96,6 +117,14 @@ const Atribuidos = () => {
         <span id="currentPage">{currentPage}</span>
         <button id="nextPage" onClick={nextPage}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path fill="#FF9F1C" d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></button>
       </div>
+      {isModalOpen && (
+            <MessageModal
+            isOpen={isModalOpen !== false}
+              message={modalMessage}
+              title={modalTitle}
+              closeModal={closeModal}
+            />
+          )}
     </div>
   );
 };

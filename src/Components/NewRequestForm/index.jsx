@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '../../Components/Input'
 import Button from '../../Components/Buttons'
 import TextArea from '../../Components/TextArea'
 import Label from '../../Components/Labels'
+import MessageModal from '../MessageModal';
 // import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -12,6 +13,27 @@ import './style.css'
 
 
 const RequestPageForm = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalCode, setModalCode] = useState('');
+
+
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openMessageModal = (title, message, code, son) => {
+    if (!isModalOpen) {
+      setModalTitle(title);
+      setModalMessage(message);
+      setModalCode(code);
+      setIsModalOpen(son);
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,15 +63,18 @@ const RequestPageForm = () => {
       if (response.ok) {
         if (!userNameFromCookie) {
           console.error('Nome do usuário não encontrado nos cookies.'); 
+          openMessageModal("Erro","Sua sessão expirou, refaça o login!"," (002)", true)
           console.log(requestData);
         }
         console.log(requestData);
         // O post foi criado com sucesso
         console.log('Chamado aberto com sucesso!');
+        openMessageModal("Sucesso!","Chamado foi aberto, logo será atendido!"," (101)", true)
         // Você pode redirecionar o usuário para outra página ou fazer qualquer outra ação aqui
       } else {
         console.log(requestData);
         console.error('Erro ao abrir chamado.');
+        openMessageModal("Erro","Erro não identificado no momento de abertura!"," (003-912)", true)
       }
     } catch (error) {
       console.log(requestData);
@@ -83,6 +108,15 @@ const RequestPageForm = () => {
               </form>
               </div>
           </div>
+          {isModalOpen && (
+            <MessageModal
+            isOpen={isModalOpen !== false}
+              message={modalMessage}
+              title={modalTitle}
+              code={modalCode}
+              closeModal={closeModal}
+            />
+          )}
           </div>
 
     );

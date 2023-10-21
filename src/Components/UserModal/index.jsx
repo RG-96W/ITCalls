@@ -5,15 +5,40 @@ import Label from '../Labels'
 import './style.css';
 import Cookies from 'js-cookie';
 import Input from '../Input';
+import MessageModal from '../MessageModal';
 
 const UserModal = ({ isOpen, onRequestClose, accountId }) => {
   const [accountDetails, setAccountDetails] = useState(null);
+
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalCode, setModalCode] = useState('');
+
+
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openMessageModal = (title, message, code, son) => {
+    if (!isModalOpen) {
+      setModalTitle(title);
+      setModalMessage(message);
+      setModalCode(code);
+      setIsModalOpen(son);
+    }
+  };
+
+
+
 
   useEffect(() => {
     if (isOpen) {
       const token = Cookies.get('token'); // Obtenha o token dos cookies (se você está usando Cookies para armazenar o token)
 
-      fetch(`http://127.0.0.1:5000/account/${accountId}`, {
+      fetch(`http://200.216.165.199:5000/account/${accountId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -28,6 +53,7 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
       .then((data) => {
         setAccountDetails(data);
         setLoginToUpdate(data.login);
+
       })
       .catch((error) => {
         console.error('Erro ao obter os detalhes da conta:', error);
@@ -68,7 +94,7 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
     updateData.level = inputAlteracao;
   }
   
-  fetch(`http://127.0.0.1:5000/account/${loginToUpdate}`, {
+  fetch(`http://200.216.165.199:5000/account/${loginToUpdate}`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -79,14 +105,21 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
   .then((response) => {
     if (!response.ok) {
       throw new Error('Erro na atualização do usuário');
+      
+
     }
     return response.json();
   })
   .then((data) => {
     console.log('Usuário atualizado com sucesso:', data);
+    openMessageModal("Sucesso!","Atualização de usuario realizada com sucesso! ", "(101)", true)
+    
   })
+
   .catch((error) => {
     console.error('Erro na atualização do usuário:', error);
+    openMessageModal("Erro","Erro não identificado na atualização de usuario!"," (001-905)", true)
+
   });
 };
 
@@ -94,6 +127,9 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
 
 
   return (
+
+
+
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="request-modal">
       {accountDetails && (
     <div className="modaluserbg">
@@ -122,10 +158,22 @@ const UserModal = ({ isOpen, onRequestClose, accountId }) => {
           <Button text="ALTERAR" className='bsolucionado2' type="submit" onClick={handleSubmit} />
           </div>
 </div>
+{isModalOpen && (
+            <MessageModal
+            isOpen={isModalOpen !== false}
+              message={modalMessage}
+              title={modalTitle}
+              code={modalCode}
+              closeModal={closeModal}
+            />
+          )}
   </div>
       )}
     </Modal>
+    
   );
+  
+  
 };
 
 export default UserModal;

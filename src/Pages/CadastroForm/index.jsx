@@ -27,7 +27,7 @@ const CadastroForm = () => {
 
     console.log(formData)
     try {
-      const response = await fetch('http://localhost:5000/account', {
+      const response = await fetch('http://200.216.165.199:5000/account', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

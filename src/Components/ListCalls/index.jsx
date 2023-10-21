@@ -1,12 +1,34 @@
 import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import RequestModal from '../RequestModal'; // Importe o componente do modal
+import MessageModal from '../MessageModal';
 import './style.css';
 
 const ListCalls = () => {
   const [chamados, setChamados] = useState([]);
   const [selectedChamadoId, setSelectedChamadoId] = useState(null); // Estado para controlar o ID do chamado selecionado
   // const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalCode, setModalCode] = useState('');
+
+
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openMessageModal = (title, message, code, son) => {
+    if (!isModalOpen) {
+      setModalTitle(title);
+      setModalMessage(message);
+      setModalCode(code);
+      setIsModalOpen(son);
+    }
+  };
+
 
   const handleChamadoClick = (chamadoId) => {
     setSelectedChamadoId(chamadoId); // Abre o modal quando um chamado é clicado
@@ -27,7 +49,7 @@ const ListCalls = () => {
 
   useEffect(() => {
     // Fazer uma solicitação HTTP GET para obter os chamados do servidor usando fetch
-    fetch('http://127.0.0.1:5001/requests')
+    fetch('http://200.216.165.199:51000/requests')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Erro ao obter os chamados');
@@ -39,6 +61,7 @@ const ListCalls = () => {
       })
       .catch((error) => {
         console.error('Erro ao obter os chamados:', error);
+        openMessageModal("Erro","Erro ao obter resposta do servidor de chamados!"," (001-908)", true)
       });
   }, []);
 
@@ -75,6 +98,15 @@ const ListCalls = () => {
           ))}
         </tbody>
       </table>
+      {isModalOpen && (
+            <MessageModal
+            isOpen={isModalOpen !== false}
+              message={modalMessage}
+              title={modalTitle}
+              code={modalCode}
+              closeModal={closeModal}
+            />
+          )}
       <RequestModal
         isOpen={selectedChamadoId !== null}
         onRequestClose={() => setSelectedChamadoId(null)} // Fecha o modal quando o usuário clica fora dele

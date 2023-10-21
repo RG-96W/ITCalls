@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-import UserModal from '../UserModal'; // Importe o componente do modal
+import UserModal from '../UserModal';
+import MessageModal from '../MessageModal';
 import './style.css';
 
 const ListCalls = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalCode, setModalCode] = useState('');
   const [account, setAccount] = useState([]);
-  const [selectedAccountId, setselectedAccountId] = useState(null); // Estado para controlar o ID do account selecionado
-  // const navigate = useNavigate();
+  const [selectedAccountId, setselectedAccountId] = useState(null);
+
+
+  const openMessageModal = (title, message, code) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalCode(code);
+    setIsModalOpen(true);
+  };
 
   const handleAccountClick = (accountId) => {
-    setselectedAccountId(accountId); // Abre o modal quando um account é clicado
+    setselectedAccountId(accountId);
   };
 
   useEffect(() => {
@@ -18,7 +29,7 @@ const ListCalls = () => {
       try {
         const cookies = document.cookie;
         const cookieArray = cookies.split(';');
-    
+
         for (const cookie of cookieArray) {
           const [name, value] = cookie.trim().split('=');
           if (name.trim() === 'token') {
@@ -29,65 +40,52 @@ const ListCalls = () => {
             }
           }
         }
-    
         throw new Error('Token não encontrado nos cookies.');
       } catch (error) {
         console.error('Erro ao obter o token:', error.message);
-
-        throw error; // Lança o erro novamente para que possa ser tratado no código que chama a função
+        openMessageModal("Erro","Sua sessão expirou, refaça o login!"," (002-907)", true)
 
       }
     };
-  
 
     const token = getBearerTokenFromCookies();
 
     if (token !== null) {
-      // console.log('Token:', token);
-      const apiUrl = 'http://127.0.0.1:5000/account';
-    
-      // console.log('Fazendo solicitação GET para:', apiUrl);
-    
+      const apiUrl = 'http://200.216.165.199:5000/account';
+
       fetch(apiUrl, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
         },
-        redirect: 'follow' // Lidar com redirecionamentos
+        redirect: 'follow'
       })
         .then((response) => {
-          console.log('Status da resposta:', response.status);
-    
-          // Adicione logs para visualizar o cabeçalho da resposta e o corpo da resposta, se necessário.
-          
           if (!response.ok) {
             throw new Error('Erro ao obter os account');
           }
           return response.json();
         })
         .then((data) => {
-          // console.log('Dados obtidos com sucesso:', data);
           setAccount(data);
+          
         })
         .catch((error) => {
           console.error('Erro ao obter os account:', error);
+          openMessageModal("Erro","Erro ao obter dados do servidor de usuarios!"," (001-906)", true)
         });
-        
     }
-
-    
   }, []);
+
   const levelMap = {
     1: "Cliente",
     2: "Técnico",
     3: "Administrador"
-    
   };
+
   const formatPassword = (password) => {
-    // Exibe os primeiros 2 caracteres seguidos de 3 asteriscos
     return password.substring(0, 2) + '***';
   };
-  
 
   return (
     <div className="ListCalls">
@@ -101,26 +99,34 @@ const ListCalls = () => {
           </tr>
         </thead>
         <tbody>
-        {account
-    .filter(account => account.status !== "Fechado") // Filtra os account com status diferente de "Fechado"
-    .map((account) => (
-      <tr
-        key={account._id}
-        onClick={() => handleAccountClick(account._id)}
-      >
-              <td className="tab1">{account.login}</td>
-              <td className="tab2">{account.email}</td>
-              <td className="tab3">{formatPassword(account.password)}</td> {/* Formata a senha */}
-              <td className={`tab4 ${account.level === 2 ? 'blue bold' : account.level === 3 ? 'red bold' : ''}`}>{levelMap[account.level] || ""}</td>
-            </tr>
-          ))}
+          {account
+            .filter(account => account.status !== "Fechado")
+            .map((account) => (
+              <tr
+                key={account._id}
+                onClick={() => handleAccountClick(account._id)}
+              >
+                <td className="tab1">{account.login}</td>
+                <td className="tab2">{account.email}</td>
+                <td className="tab3">{formatPassword(account.password)}</td>
+                <td className={`tab4 ${account.level === 2 ? 'blue bold' : account.level === 3 ? 'red bold' : ''}`}>{levelMap[account.level] || ""}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <UserModal
         isOpen={selectedAccountId !== null}
-        onRequestClose={() => setselectedAccountId(null)} // Fecha o modal quando o usuário clica fora dele
+        onRequestClose={() => setselectedAccountId(null)}
         accountId={selectedAccountId}
       />
+      {isModalOpen && (
+            <MessageModal
+            isOpen={isModalOpen !== false}
+              message={modalMessage}
+              title={modalTitle}
+              code={modalCode}
+            />
+          )}
     </div>
   );
 };
