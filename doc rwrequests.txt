@@ -2,6 +2,8 @@
 002 Erro obtido quando não ha token de usuario nos cookies, recomenda-se refazer o login.
 003 Erro obtigo quando ocorre alguma falha relacioanada ao servidor de requests (API2)
 004
+
+
 905 Ocorreu um erro no momento de realiar uma atualização no usuario (UserModal > 123)
 906 Erro na lista de usuarios da API1 (ListUsers > 75)
 907 Erro ao obter usuarios da lista, não ha token nos cookies (ListUsers > 46)

@@ -72,7 +72,7 @@ const ListCalls = () => {
         })
         .catch((error) => {
           console.error('Erro ao obter os account:', error);
-          openMessageModal("Erro","Erro ao obter dados do servidor de usuarios!"," (001-906)", true)
+          openMessageModal("Erro","Erro ao obter dados do servidor de usuarios! Tente refazer o login."," (001-906)", true)
         });
     }
   }, []);

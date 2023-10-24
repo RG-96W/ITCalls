@@ -104,9 +104,9 @@ const RequestModal = ({ isOpen, onRequestClose, chamadoId }) => {
   };
 
 
-const handleEditarClick = () => {
-  openMessageModal("Ops...", "Está pagina está em construção!","", true)
-}
+  const handleEditarClick = () => {
+    openMessageModal("Ops...", "Está pagina está em construção!", "", true)
+  }
 
 
   // Função para lidar com o envio do comentário
@@ -124,8 +124,10 @@ const handleEditarClick = () => {
     // Atualize a lista de comentários no chamado atual
     const novosComentarios = [...atualRequest.comentarios, novoComentario];
 
-    // Atualize o status para "Fechado"
     const novoStatus = 'Fechado';
+
+    // Obtenha a data atual para a data de fechamento
+    const dataFechamento = new Date();
 
     // Faça uma solicitação PUT para atualizar o chamado no servidor
     fetch(`http://200.216.165.199:51000/requests/${chamadoId}`, {
@@ -136,6 +138,7 @@ const handleEditarClick = () => {
       body: JSON.stringify({
         comentarios: novosComentarios,
         status: novoStatus,
+        data_fechamento: dataFechamento,
       }),
     })
       .then((response) => {
@@ -225,11 +228,15 @@ const handleEditarClick = () => {
               <div className="c4">{atualRequest.responsavel}</div>
               <div className="c5">SOLICITANTE</div>
               <div className="c6">{atualRequest.cliente}</div>
-              <div className="c7">VENCIMENTO</div>
+              <div className="c7">{atualRequest.status === 'Fechado' ? 'FECHADO' : 'VENCIMENTO'}</div>
               <div className="c8">
-                <div className="progress-container">
-                  <div className="progress-bar" style={{ width: `${progressoRef.current}%`, backgroundColor: cor }}></div>
-                </div>
+                {atualRequest.status === 'Fechado' ? (
+                  <div className="data-fechamento">{atualRequest.data_fechamento}</div>
+                ) : (
+                  <div className="progress-container">
+                    <div className="progress-bar" style={{ width: `${progressoRef.current}%`, backgroundColor: cor }}></div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

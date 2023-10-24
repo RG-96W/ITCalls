@@ -63,7 +63,31 @@ const ListCalls = () => {
         console.error('Erro ao obter os chamados:', error);
         openMessageModal("Erro","Erro ao obter resposta do servidor de chamados!"," (001-908)", true)
       });
+      
+      
+
   }, []);
+
+  useEffect(() => {
+    if (selectedChamadoId === null) {
+      // Realize a chamada à API novamente quando o modal for fechado
+      fetch('http://200.216.165.199:51000/requests')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Erro ao obter os chamados');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setChamados(data);
+        })
+        .catch((error) => {
+          console.error('Erro ao obter os chamados:', error);
+          openMessageModal("Erro", "Erro ao obter resposta do servidor de chamados!", " (001-908)", true);
+        });
+    }
+  }, [selectedChamadoId]);
+  
 
   return (
     <div className="ListCalls">
@@ -80,7 +104,7 @@ const ListCalls = () => {
         </thead>
         <tbody>
         {chamados
-    .filter(chamado => chamado.status !== "Fechado") // Filtra os chamados com status diferente de "Fechado"
+    .filter(chamado => chamado.status !== "") // Filtra os chamados com status diferente de "Fechado"
     .map((chamado) => (
       <tr
         key={chamado._id}

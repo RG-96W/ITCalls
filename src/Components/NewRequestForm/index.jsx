@@ -52,7 +52,7 @@ const RequestPageForm = () => {
   
     try {
       // Envia os dados para o servidor fictício
-      const response = await fetch('http://127.0.0.1:5001/requests', {
+      const response = await fetch('http://200.216.165.199:51000/requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const Request = () => {
   useEffect(() => {
     if (chamadoId) {
       // Fazer uma solicitação HTTP GET para obter os detalhes do chamado usando o chamadoId
-      fetch(`http://127.0.0.1:5001/requests/${chamadoId}`)
+      fetch(`http://200.216.165.199:51000/requests/${chamadoId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Erro ao obter os detalhes do chamado');
