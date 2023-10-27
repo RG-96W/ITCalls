@@ -100,3 +100,28 @@ box-shadow: 10px 10px 12px -1px rgba(0,0,0,0.46);
         justify-content: center;
     }
 
+    .breabrir {
+        background-color: #ca5b00;
+        border-radius: 42px;
+        border: 1px solid #a75e00;
+        display: flex;
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #572700;
+        width: 60%;
+        height: 60%;
+    }
+
+    .breabrir:hover {
+        background-color: #a86500;
+    }
+    
+    .breabrir:active {
+        position: relative;
+        top: 1px;
+    }

@@ -2,19 +2,42 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Button from '../../Components/RequestModal/button';
 import MessageModal from '../MessageModal';
+import ConfirmacaoModal from '../ConfirmacaoModal'; // Certifique-se de importar o ConfirmacaoModal
 import './style.css';
 
 const Atribuidos = () => {
   const [chamados, setChamados] = useState([]);
   const [userName, setUserName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const chamadosPerPage = 6; // Quantidade de chamados por página
+  const chamadosPerPage = 6;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
 
+  const [chamadoAReabrir, setChamadoAReabrir] = useState(null);
 
+  const [isConfirmacaoModalOpen, setIsConfirmacaoModalOpen] = useState(false); // Declare a variável isConfirmacaoModalOpen
+
+  const [chamadosSelect, setChamadosSelect] = useState([]);
+
+  const [novoComentario, setNovoComentario] = useState([]);
+  const [novoStatus, setNovoStatus] = useState([]);
+  const [fechamento, setFechamento] = useState([]);
+  const [novoFCR, setNovoFCR] = useState([]);
+
+  // Declare a função openConfirmacaoModal
+  const openConfirmacaoModal = (title, message, son, actionOnConfirm) => {
+    if (!isConfirmacaoModalOpen) {
+      setModalTitle(title);
+      setModalMessage(message);
+      setActionOnConfirm(actionOnConfirm);
+      setIsConfirmacaoModalOpen(son);
+    }
+  };
+
+  // Declare a variável actionOnConfirm
+  const [actionOnConfirm, setActionOnConfirm] = useState(null);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -27,8 +50,6 @@ const Atribuidos = () => {
       setIsModalOpen(son);
     }
   };
-
-
 
   useEffect(() => {
     // Recupere o nome do usuário do cookie
@@ -88,9 +109,27 @@ const Atribuidos = () => {
   const indexOfFirstChamado = indexOfLastChamado - chamadosPerPage;
   const currentChamados = chamados.slice(indexOfFirstChamado, indexOfLastChamado);
 
+  const handleReabrirChamado = (chamadosSelect) => {
+    console.log("Função handleReabrirChamado chamada.");
+    console.log("Chamado recebido para reabertura:", chamadosSelect.status);
+  
+    if (chamadosSelect) {
+      // 1. Atualize o estado chamadosSelect para null para redefinir a seleção.
+      setNovoComentario("Chamado foi reaberto", new Date())
+      setNovoFCR(chamadosSelect.FCR + 1)
+      setNovoStatus("Reaberto")
+      setFechamento()
+      
+      // 2. Incremente o FCR em 1.
+
+      console.log("Chamado reaberto")
+  
+    } else {
+      console.log("Chamado não existe. Falha na reabertura.");
+    }
+  };
+
   return (
-
-
     <div className="meuschamadosa">
       <div className="meuschamadosgrid">
         {currentChamados.map((chamado, index) => (
@@ -106,25 +145,49 @@ const Atribuidos = () => {
                 <div className="chamadostatus1" style={{ color: getStatusColor(chamado.status) }}>
                   {chamado.status}
                 </div>
-                <Button text="Saber Mais" className="beditar" type="submit" onClick={() => openMessageModal("Ops...", "Está pagina está em construção!", true)}/>
+                {chamado.status === 'Fechado' ? (
+                <Button
+                  text="Reabrir"
+                  className="breabrir"
+                  type="submit"
+                  onClick={() => {
+                    openConfirmacaoModal(
+                      "Confirmação",
+                      "Tem certeza que deseja reabrir este chamado?",
+                      true,
+                      () => setChamadosSelect(chamado)
+                    );
+                  }}
+                />
+                ) : (
+                  <Button text="Saber Mais" className="beditar" type="submit" onClick={() => openMessageModal("Ops...", "Esta página está em construção!", true)} />
+                )}
               </div>
             </div>
           </div>
         ))}
       </div>
       <div className="pagination" id="pagination">
-        <button id="prevPage" onClick={prevPage}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path fill="#FF9F1C" d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>
+        <button id="prevPage" onClick={prevPage}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path fill="#FF9F1C" d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" /></svg></button>
         <span id="currentPage">{currentPage}</span>
-        <button id="nextPage" onClick={nextPage}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path fill="#FF9F1C" d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></button>
+        <button id="nextPage" onClick={nextPage}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path fill="#FF9F1C" d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" /></svg></button>
       </div>
       {isModalOpen && (
-            <MessageModal
-            isOpen={isModalOpen !== false}
-              message={modalMessage}
-              title={modalTitle}
-              closeModal={closeModal}
-            />
-          )}
+        <MessageModal
+          isOpen={isModalOpen !== false}
+          message={modalMessage}
+          title={modalTitle}
+          closeModal={closeModal}
+        />
+      )}
+      {isConfirmacaoModalOpen && (
+        <ConfirmacaoModal
+  isOpen={isConfirmacaoModalOpen}
+  chamadoAReabrir={chamadoAReabrir}
+  actionOnConfirm={handleReabrirChamado}
+  closeModal={() => setIsConfirmacaoModalOpen(false)}
+/>
+      )}
     </div>
   );
 };
