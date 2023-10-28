@@ -26,6 +26,8 @@ const Atribuidos = () => {
   const [fechamento, setFechamento] = useState([]);
   const [novoFCR, setNovoFCR] = useState([]);
 
+  const [atualRequest, setAtualRequest] = useState(null);
+
   // Declare a função openConfirmacaoModal
   const openConfirmacaoModal = (title, message, son, actionOnConfirm) => {
     if (!isConfirmacaoModalOpen) {
@@ -104,26 +106,61 @@ const Atribuidos = () => {
     }
   };
 
+
+
+
+
+
   // Calcular os índices dos chamados na página atual
   const indexOfLastChamado = currentPage * chamadosPerPage;
   const indexOfFirstChamado = indexOfLastChamado - chamadosPerPage;
   const currentChamados = chamados.slice(indexOfFirstChamado, indexOfLastChamado);
 
-  const handleReabrirChamado = (chamadosSelect) => {
+  const handleReabrirChamado = () => {
     console.log("Função handleReabrirChamado chamada.");
-    console.log("Chamado recebido para reabertura:", chamadosSelect.status);
-  
+    console.log("Chamado recebido para reabertura:", chamadosSelect.titulo);
+    setNovoComentario(chamadosSelect._id)
+
     if (chamadosSelect) {
       // 1. Atualize o estado chamadosSelect para null para redefinir a seleção.
-      setNovoComentario("Chamado foi reaberto", new Date())
+      
+
+
       setNovoFCR(chamadosSelect.FCR + 1)
       setNovoStatus("Reaberto")
-      setFechamento()
-      
-      // 2. Incremente o FCR em 1.
-
-      console.log("Chamado reaberto")
-  
+      setFechamento("")
+      console.log(chamadosSelect._id)
+      fetch(`http://200.216.165.199:51000/requests/${novoComentario}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "comentarios": [
+              {
+                "texto": "Chamado reaberto pelo autor."
+              }
+            ],
+          FCR: novoFCR,
+          status: novoStatus,
+          data_fechamento: fechamento,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw Error('Erro ao atualizar o chamado');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Atualize o estado com o novo chamado
+          setAtualRequest(data);
+          openMessageModal("Sucesso!", "Status do chamado atualiado para SOLUCIONADO !", " (101)", true)
+        })
+        .catch((error) => {
+          console.error('Erro ao atualizar o chamado:', error);
+          openMessageModal("Erro", "Erro ao atualizar chamado!", " (003-911)", true)
+        });
     } else {
       console.log("Chamado não existe. Falha na reabertura.");
     }

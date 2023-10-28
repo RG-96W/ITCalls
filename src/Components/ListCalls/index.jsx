@@ -44,6 +44,8 @@ const ListCalls = () => {
         return 'status-bloqueado'; // Adicione a classe "status-bloqueado" no seu arquivo CSS
       default:
         return '';
+        case 'Reaberto':
+          return 'status-reaberto'; // Adicione a classe "status-bloqueado" no seu arquivo CSS
     }
   };
 
